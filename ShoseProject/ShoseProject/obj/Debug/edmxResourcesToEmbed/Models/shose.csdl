@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="shoseShopDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tbl_logsale">
+    <Key>
+      <PropertyRef Name="idx" />
+    </Key>
+    <Property Name="idx" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="loginName" Type="Binary" MaxLength="50" FixedLength="false" />
+    <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="pro_id" Type="Int32" />
+    <Property Name="pro_amount" Type="Int32" />
+    <Property Name="pro_price" Type="Decimal" Precision="19" Scale="4" />
+  </EntityType>
+  <EntityType Name="tbl_typeColour">
+    <Key>
+      <PropertyRef Name="typeColourID" />
+    </Key>
+    <Property Name="typeColourID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="typeColour" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_detail" Relationship="Self.FK_tbl_detail_ToTable_1" FromRole="tbl_typeColour" ToRole="tbl_detail" />
+  </EntityType>
+  <EntityType Name="tbl_typestyle">
+    <Key>
+      <PropertyRef Name="typeStyleID" />
+    </Key>
+    <Property Name="typeStyleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="typeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_detail" Relationship="Self.FK_tbl_detail_ToTable" FromRole="tbl_typestyle" ToRole="tbl_detail" />
+  </EntityType>
+  <EntityType Name="tbl_detail">
+    <Key>
+      <PropertyRef Name="idx" />
+    </Key>
+    <Property Name="idx" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nameItem" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="decription" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="typeStyleID" Type="Int32" />
+    <Property Name="typeColourID" Type="Int32" />
+    <Property Name="qty" Type="Int32" />
+    <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_typeColour" Relationship="Self.FK_tbl_detail_ToTable_1" FromRole="tbl_detail" ToRole="tbl_typeColour" />
+    <NavigationProperty Name="tbl_typestyle" Relationship="Self.FK_tbl_detail_ToTable" FromRole="tbl_detail" ToRole="tbl_typestyle" />
+  </EntityType>
+  <Association Name="FK_tbl_detail_ToTable_1">
+    <End Role="tbl_typeColour" Type="Self.tbl_typeColour" Multiplicity="0..1" />
+    <End Role="tbl_detail" Type="Self.tbl_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_typeColour">
+        <PropertyRef Name="typeColourID" />
+      </Principal>
+      <Dependent Role="tbl_detail">
+        <PropertyRef Name="typeColourID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_detail_ToTable">
+    <End Role="tbl_typestyle" Type="Self.tbl_typestyle" Multiplicity="0..1" />
+    <End Role="tbl_detail" Type="Self.tbl_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_typestyle">
+        <PropertyRef Name="typeStyleID" />
+      </Principal>
+      <Dependent Role="tbl_detail">
+        <PropertyRef Name="typeStyleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="shoseShopDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tbl_logsale" EntityType="Self.tbl_logsale" />
+    <EntitySet Name="tbl_typeColour" EntityType="Self.tbl_typeColour" />
+    <EntitySet Name="tbl_typestyle" EntityType="Self.tbl_typestyle" />
+    <EntitySet Name="tbl_detail" EntityType="Self.tbl_detail" />
+    <AssociationSet Name="FK_tbl_detail_ToTable_1" Association="Self.FK_tbl_detail_ToTable_1">
+      <End Role="tbl_typeColour" EntitySet="tbl_typeColour" />
+      <End Role="tbl_detail" EntitySet="tbl_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_detail_ToTable" Association="Self.FK_tbl_detail_ToTable">
+      <End Role="tbl_typestyle" EntitySet="tbl_typestyle" />
+      <End Role="tbl_detail" EntitySet="tbl_detail" />
+    </AssociationSet>
+    <EntitySet Name="sysdiagrams" EntityType="shoseShopDBModel.sysdiagram" />
+    <EntitySet Name="tbl_login" EntityType="shoseShopDBModel.tbl_login" />
+  </EntityContainer>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tbl_login">
+    <Key>
+      <PropertyRef Name="idx" />
+    </Key>
+    <Property Name="idx" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="loginName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="tel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dateCreateLogin" Type="DateTime" Precision="0" />
+    <Property Name="typeUser" Type="Int32" />
+  </EntityType>
+</Schema>

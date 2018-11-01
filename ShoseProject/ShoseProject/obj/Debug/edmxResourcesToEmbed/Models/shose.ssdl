@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="shoseShopDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="tbl_detail">
+    <Key>
+      <PropertyRef Name="idx" />
+    </Key>
+    <Property Name="idx" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nameItem" Type="varchar" MaxLength="50" />
+    <Property Name="decription" Type="varchar" MaxLength="250" />
+    <Property Name="price" Type="money" />
+    <Property Name="typeStyleID" Type="int" />
+    <Property Name="typeColourID" Type="int" />
+    <Property Name="qty" Type="int" />
+    <Property Name="image" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'shoseShopDB.dbo.tbl_login' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tbl_login">
+    <Key>
+      <PropertyRef Name="idx" />
+    </Key>
+    <Property Name="idx" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="login" Type="varchar" MaxLength="50" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+    <Property Name="loginName" Type="varchar" MaxLength="50" />
+    <Property Name="address" Type="varchar" MaxLength="100" />
+    <Property Name="tel" Type="varchar" MaxLength="50" />
+    <Property Name="dateCreateLogin" Type="date" />
+    <Property Name="typeUser" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_logsale">
+    <Key>
+      <PropertyRef Name="idx" />
+    </Key>
+    <Property Name="idx" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="50" />
+    <Property Name="loginName" Type="varbinary" MaxLength="50" />
+    <Property Name="address" Type="varchar" MaxLength="50" />
+    <Property Name="tel" Type="varchar" MaxLength="50" />
+    <Property Name="pro_id" Type="int" />
+    <Property Name="pro_amount" Type="int" />
+    <Property Name="pro_price" Type="money" />
+  </EntityType>
+  <EntityType Name="tbl_typeColour">
+    <Key>
+      <PropertyRef Name="typeColourID" />
+    </Key>
+    <Property Name="typeColourID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="typeColour" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tbl_typestyle">
+    <Key>
+      <PropertyRef Name="typeStyleID" />
+    </Key>
+    <Property Name="typeStyleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="typeName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_tbl_detail_ToTable">
+    <End Role="tbl_typestyle" Type="Self.tbl_typestyle" Multiplicity="0..1" />
+    <End Role="tbl_detail" Type="Self.tbl_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_typestyle">
+        <PropertyRef Name="typeStyleID" />
+      </Principal>
+      <Dependent Role="tbl_detail">
+        <PropertyRef Name="typeStyleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_detail_ToTable_1">
+    <End Role="tbl_typeColour" Type="Self.tbl_typeColour" Multiplicity="0..1" />
+    <End Role="tbl_detail" Type="Self.tbl_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_typeColour">
+        <PropertyRef Name="typeColourID" />
+      </Principal>
+      <Dependent Role="tbl_detail">
+        <PropertyRef Name="typeColourID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="shoseShopDBModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_detail" EntityType="Self.tbl_detail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_logsale" EntityType="Self.tbl_logsale" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_typeColour" EntityType="Self.tbl_typeColour" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_typestyle" EntityType="Self.tbl_typestyle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_login" EntityType="Self.tbl_login" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[tbl_login].[idx] AS [idx], 
+[tbl_login].[login] AS [login], 
+[tbl_login].[password] AS [password], 
+[tbl_login].[loginName] AS [loginName], 
+[tbl_login].[address] AS [address], 
+[tbl_login].[tel] AS [tel], 
+[tbl_login].[dateCreateLogin] AS [dateCreateLogin], 
+[tbl_login].[typeUser] AS [typeUser]
+FROM [dbo].[tbl_login] AS [tbl_login]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_tbl_detail_ToTable" Association="Self.FK_tbl_detail_ToTable">
+      <End Role="tbl_typestyle" EntitySet="tbl_typestyle" />
+      <End Role="tbl_detail" EntitySet="tbl_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_detail_ToTable_1" Association="Self.FK_tbl_detail_ToTable_1">
+      <End Role="tbl_typeColour" EntitySet="tbl_typeColour" />
+      <End Role="tbl_detail" EntitySet="tbl_detail" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

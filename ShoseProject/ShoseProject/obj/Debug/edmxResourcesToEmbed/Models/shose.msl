@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="shoseShopDBModelStoreContainer" CdmEntityContainer="shoseShopDBEntities">
+    <EntitySetMapping Name="tbl_logsale">
+      <EntityTypeMapping TypeName="shoseShopDBModel.tbl_logsale">
+        <MappingFragment StoreEntitySet="tbl_logsale">
+          <ScalarProperty Name="idx" ColumnName="idx" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="loginName" ColumnName="loginName" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="tel" ColumnName="tel" />
+          <ScalarProperty Name="pro_id" ColumnName="pro_id" />
+          <ScalarProperty Name="pro_amount" ColumnName="pro_amount" />
+          <ScalarProperty Name="pro_price" ColumnName="pro_price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_typeColour">
+      <EntityTypeMapping TypeName="shoseShopDBModel.tbl_typeColour">
+        <MappingFragment StoreEntitySet="tbl_typeColour">
+          <ScalarProperty Name="typeColourID" ColumnName="typeColourID" />
+          <ScalarProperty Name="typeColour" ColumnName="typeColour" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_typestyle">
+      <EntityTypeMapping TypeName="shoseShopDBModel.tbl_typestyle">
+        <MappingFragment StoreEntitySet="tbl_typestyle">
+          <ScalarProperty Name="typeStyleID" ColumnName="typeStyleID" />
+          <ScalarProperty Name="typeName" ColumnName="typeName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_detail">
+      <EntityTypeMapping TypeName="shoseShopDBModel.tbl_detail">
+        <MappingFragment StoreEntitySet="tbl_detail">
+          <ScalarProperty Name="idx" ColumnName="idx" />
+          <ScalarProperty Name="nameItem" ColumnName="nameItem" />
+          <ScalarProperty Name="decription" ColumnName="decription" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="typeStyleID" ColumnName="typeStyleID" />
+          <ScalarProperty Name="typeColourID" ColumnName="typeColourID" />
+          <ScalarProperty Name="qty" ColumnName="qty" />
+          <ScalarProperty Name="image" ColumnName="image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="shoseShopDBModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_login">
+      <EntityTypeMapping TypeName="shoseShopDBModel.tbl_login">
+        <MappingFragment StoreEntitySet="tbl_login">
+          <ScalarProperty Name="typeUser" ColumnName="typeUser" />
+          <ScalarProperty Name="dateCreateLogin" ColumnName="dateCreateLogin" />
+          <ScalarProperty Name="tel" ColumnName="tel" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="loginName" ColumnName="loginName" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="idx" ColumnName="idx" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
